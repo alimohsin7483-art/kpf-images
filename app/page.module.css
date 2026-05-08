@@ -712,3 +712,13 @@
     height: 420px;
   }
 }
+/* FIX HORIZONTAL SCROLL */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
