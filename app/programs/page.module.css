@@ -1,5 +1,3 @@
-i did the same in another program page css but its not changed
-
 .heroInner { position: relative; z-index: 1; max-width: 700px; }
 .heroTitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 7vw, 7rem); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 1.8rem; }
 .gold { color: var(--neon); }
