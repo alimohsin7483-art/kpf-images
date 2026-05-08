@@ -1,3 +1,5 @@
+i did the same in another program page css but its not changed
+
 .heroInner { position: relative; z-index: 1; max-width: 700px; }
 .heroTitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 7vw, 7rem); letter-spacing: 0.04em; line-height: 0.95; margin-bottom: 1.8rem; }
 .gold { color: var(--neon); }
@@ -140,7 +142,138 @@
   transition: color 0.2s;
 }
 .card:hover .cta { color: var(--white) !important; }
+/* SAFE 3D UPGRADE */
 
+.programCard {
+  border-radius: 28px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18,18,22,0.96),
+      rgba(10,10,14,0.92)
+    );
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+
+  transition:
+    transform 0.45s cubic-bezier(0.23,1,0.32,1),
+    box-shadow 0.45s ease,
+    border-color 0.4s ease;
+
+  position: relative;
+}
+
+/* neon orb */
+.programCard::before {
+  content: '';
+
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  top: -80px;
+  right: -80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212,255,0,0.14),
+      transparent 70%
+    );
+
+  opacity: 0.7;
+
+  transition:
+    transform 0.5s ease,
+    opacity 0.4s ease;
+
+  pointer-events: none;
+}
+
+/* shine */
+.programCard::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(255,255,255,0.04) 45%,
+      transparent 70%
+    );
+
+  transform: translateX(-120%);
+  transition: transform 0.8s ease;
+
+  pointer-events: none;
+}
+
+.programCard:hover {
+  transform:
+    translateY(-10px)
+    scale(1.015);
+
+  border-color: rgba(212,255,0,0.22);
+
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.75),
+    0 0 40px rgba(212,255,0,0.08);
+}
+
+.programCard:hover::before {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.programCard:hover::after {
+  transform: translateX(120%);
+}
+
+/* icon floating effect */
+.cardImageIcon {
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
+
+  filter:
+    drop-shadow(0 6px 18px rgba(0,0,0,0.4))
+    drop-shadow(0 0 18px rgba(212,255,0,0.15));
+}
+
+.programCard:hover .cardImageIcon {
+  transform:
+    scale(1.08)
+    translateY(-4px);
+}
+
+/* glass pills */
+.metaItem {
+  background: rgba(255,255,255,0.04);
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  padding: 0.45rem 0.75rem;
+
+  border-radius: 999px;
+}
+
+/* neon pricing */
+.price {
+  text-shadow:
+    0 0 20px rgba(212,255,0,0.3);
+}
 /* ── CTA BANNER ──────────────────────────────────── */
 .ctaBanner { padding: 6rem 4rem; text-align: center; background: var(--dark); border-top: 1px solid var(--border); }
 .ctaTitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); letter-spacing: 0.04em; margin-bottom: 1.2rem; }

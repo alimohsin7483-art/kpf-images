@@ -57,10 +57,9 @@
 }
 .heroHeadline {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(5.5rem, 13vw, 13rem);
-  line-height: 0.9;
-  letter-spacing: 0.02em;
-  margin-bottom: 2.5rem;
+  font-size: clamp(3.2rem, 6vw, 5.8rem);
+  line-height: 0.88;
+  letter-spacing: 0.015em;
 }
 .heroNeon {
   color: var(--neon);
@@ -127,236 +126,324 @@
 
 /* MARQUEE */
 .marqueeBar {
-  background: var(--neon);
   overflow: hidden;
-  padding: 0.9rem 0;
+  width: 100%;
   white-space: nowrap;
+  background: #F4C542;
+  padding: 0.85rem 0;
 }
+
 .marqueeInner {
-  display: inline-block;
-  animation: marqueeScroll 18s linear infinite;
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 24s linear infinite;
 }
+
 .marqueeItem {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.14em;
-  color: var(--black);
+  flex-shrink: 0;
   padding: 0 2rem;
 }
-.marqueeDot { opacity: 0.4; }
 
-/* STATS */
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ───────── PREMIUM STATS SECTION ───────── */
+
 .statsBar {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid var(--border);
+  gap: 1.5rem;
+  padding: 3rem 4rem 5rem;
+  background:
+    radial-gradient(circle at top center, rgba(212,255,0,0.06), transparent 60%);
+  overflow: hidden;
 }
+
+/* subtle animated glow */
+.statsBar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(212,255,0,0.03),
+      transparent
+    );
+  transform: translateX(-100%);
+  animation: statsGlow 8s linear infinite;
+  pointer-events: none;
+}
+
 .stat {
-  padding: 4rem 2.5rem;
-  text-align: center;
-  border-right: 1px solid var(--border);
-  transition: background 0.3s;
   position: relative;
+  background: rgba(15,15,18,0.75);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+
+  padding: 3rem 2rem;
+  text-align: center;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
+
+/* neon top line */
 .stat::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
   background: var(--neon);
+
   transform: scaleX(0);
+  transform-origin: left;
+
   transition: transform 0.4s ease;
 }
-.stat:hover::before { transform: scaleX(1); }
-.stat:hover { background: rgba(212,255,0,0.03); }
-.stat:last-child { border-right: none; }
-.statNum {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.5rem, 5vw, 5.5rem);
-  color: var(--neon);
-  line-height: 1;
-  display: block;
-  text-shadow: 0 0 30px rgba(212,255,0,0.3);
-}
-.statLabel {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gray);
-  display: block;
-  margin-top: 0.5rem;
+
+/* glow orb */
+.stat::after {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+
+  background: radial-gradient(
+    circle,
+    rgba(212,255,0,0.08),
+    transparent 70%
+  );
+
+  top: -60px;
+  right: -60px;
+
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-/* ── PROGRAMS SECTION ──────────────────────────────────────────────────────── */
-.section {
-  padding: 8rem 4rem;
-  border-bottom: 1px solid var(--border);
-}
-.sectionHeader {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 4rem;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-.sectionTitle {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, 5vw, 5rem);
-  letter-spacing: 0.04em;
-}
-
-/* Grid: 2 cards centred — matches /programs layout */
-.programsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-/* ── CARD — identical structure to /programs page ──────────────────────────── */
-.programCard {
-  background: var(--card);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  transition:
-    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
-    box-shadow 0.4s,
-    border-color 0.3s;
-  text-decoration: none;
-}
-.programCard:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 32px 80px rgba(0,0,0,0.85), 0 0 40px rgba(212,255,0,0.1);
+.stat:hover {
+  transform: translateY(-8px);
   border-color: rgba(212,255,0,0.25);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.6),
+    0 0 30px rgba(212,255,0,0.08);
 }
 
-/* Image area on top */
-.cardImageWrap {
-  position: relative;
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.cardImageFallback {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.cardImageIcon {
-  font-size: 5rem;
-  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
-}
-.cardImageOverlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.tagOverlay {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border: 1px solid;
-  padding: 0.3rem 0.7rem;
-  background: rgba(10,10,15,0.85);
-  backdrop-filter: blur(8px);
+.stat:hover::before {
+  transform: scaleX(1);
 }
 
-/* Card body */
-.cardBody {
-  padding: 2rem 2.2rem 2.2rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  position: relative;
+.stat:hover::after {
+  opacity: 1;
 }
-.cardBorderAccent {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  opacity: 0.6;
-}
-.cardTitle {
+
+.statNum {
+  display: block;
+
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  letter-spacing: 0.06em;
-  margin-bottom: 0.5rem;
+  font-size: clamp(4rem, 6vw, 6rem);
   line-height: 1;
-}
-.cardSub {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+
   color: var(--neon);
-  margin-bottom: 1.2rem;
+
+  text-shadow:
+    0 0 20px rgba(212,255,0,0.35),
+    0 0 40px rgba(212,255,0,0.12);
+
+  margin-bottom: 0.6rem;
 }
-.cardDesc {
-  font-size: 0.97rem;
-  color: var(--gray);
-  line-height: 1.7;
-  margin-bottom: 1.6rem;
-  flex: 1;
-}
-.cardMeta {
-  display: flex;
-  gap: 1.2rem;
-  margin-bottom: 1.6rem;
-  padding-bottom: 1.4rem;
-  border-bottom: 1px solid var(--border);
-}
-.metaItem {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gray);
-}
-.cardFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.price {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  color: var(--neon);
-  letter-spacing: 0.04em;
-  text-shadow: 0 0 20px rgba(212,255,0,0.3);
-}
-.originalPrice {
-  font-size: 0.9rem;
-  color: var(--gray);
-  text-decoration: line-through;
-  margin-left: 0.5rem;
-}
-.cardCta {
+
+.statLabel {
+  display: block;
+
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-.programCard:hover .cardCta { color: var(--white) !important; }
+  font-weight: 700;
 
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: rgba(255,255,255,0.7);
+}
+
+/* animated shine */
+@keyframes statsGlow {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .statsBar {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2rem 1.5rem 4rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .statsBar {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+/* ── PROGRAMS SECTION ──────────────────────────────────────────────────────── */ .section { padding: 8rem 4rem; border-bottom: 1px solid var(--border); } .sectionHeader { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; flex-wrap: wrap; gap: 1.5rem; } .sectionTitle { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 5vw, 5rem); letter-spacing: 0.04em; } /* Grid: 2 cards centred — matches /programs layout */ .programsGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; max-width: 960px; margin: 0 auto; } /* ── CARD — identical structure to /programs page ──────────────────────────── */ .programCard { background: var(--card); border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 8px 32px rgba(0,0,0,0.5); transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s, border-color 0.3s; text-decoration: none; } .programCard:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 32px 80px rgba(0,0,0,0.85), 0 0 40px rgba(212,255,0,0.1); border-color: rgba(212,255,0,0.25); } /* Image area on top */ .cardImageWrap { position: relative; width: 100%; height: 220px; overflow: hidden; flex-shrink: 0; } .cardImageFallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; } .cardImageIcon { font-size: 5rem; filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5)); } .cardImageOverlay { position: absolute; inset: 0; pointer-events: none; } .tagOverlay { position: absolute; top: 1rem; right: 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid; padding: 0.3rem 0.7rem; background: rgba(10,10,15,0.85); backdrop-filter: blur(8px); } /* Card body */ .cardBody { padding: 2rem 2.2rem 2.2rem; display: flex; flex-direction: column; flex: 1; position: relative; } .cardBorderAccent { position: absolute; top: 0; left: 0; right: 0; height: 2px; opacity: 0.6; } .cardTitle { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.06em; margin-bottom: 0.5rem; line-height: 1; } .cardSub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--neon); margin-bottom: 1.2rem; } .cardDesc { font-size: 0.97rem; color: var(--gray); line-height: 1.7; margin-bottom: 1.6rem; flex: 1; } .cardMeta { display: flex; gap: 1.2rem; margin-bottom: 1.6rem; padding-bottom: 1.4rem; border-bottom: 1px solid var(--border); } .metaItem { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); } .cardFooter { display: flex; align-items: center; justify-content: space-between; } .price { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--neon); letter-spacing: 0.04em; text-shadow: 0 0 20px rgba(212,255,0,0.3); } .originalPrice { font-size: 0.9rem; color: var(--gray); text-decoration: line-through; margin-left: 0.5rem; } .cardCta { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; transition: color 0.2s; } .programCard:hover .cardCta { color: var(--white) !important; }
+/* SAFE 3D UPGRADE */
+
+.programCard {
+  border-radius: 28px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18,18,22,0.96),
+      rgba(10,10,14,0.92)
+    );
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+
+  transition:
+    transform 0.45s cubic-bezier(0.23,1,0.32,1),
+    box-shadow 0.45s ease,
+    border-color 0.4s ease;
+
+  position: relative;
+}
+
+/* neon orb */
+.programCard::before {
+  content: '';
+
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  top: -80px;
+  right: -80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(212,255,0,0.14),
+      transparent 70%
+    );
+
+  opacity: 0.7;
+
+  transition:
+    transform 0.5s ease,
+    opacity 0.4s ease;
+
+  pointer-events: none;
+}
+
+/* shine */
+.programCard::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(255,255,255,0.04) 45%,
+      transparent 70%
+    );
+
+  transform: translateX(-120%);
+  transition: transform 0.8s ease;
+
+  pointer-events: none;
+}
+
+.programCard:hover {
+  transform:
+    translateY(-10px)
+    scale(1.015);
+
+  border-color: rgba(212,255,0,0.22);
+
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.75),
+    0 0 40px rgba(212,255,0,0.08);
+}
+
+.programCard:hover::before {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.programCard:hover::after {
+  transform: translateX(120%);
+}
+
+/* icon floating effect */
+.cardImageIcon {
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
+
+  filter:
+    drop-shadow(0 6px 18px rgba(0,0,0,0.4))
+    drop-shadow(0 0 18px rgba(212,255,0,0.15));
+}
+
+.programCard:hover .cardImageIcon {
+  transform:
+    scale(1.08)
+    translateY(-4px);
+}
+
+/* glass pills */
+.metaItem {
+  background: rgba(255,255,255,0.04);
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  padding: 0.45rem 0.75rem;
+
+  border-radius: 999px;
+}
+
+/* neon pricing */
+.price {
+  text-shadow:
+    0 0 20px rgba(212,255,0,0.3);
+}
 /* ABOUT STRIP */
 .aboutStrip {
   padding: 8rem 4rem;
@@ -507,4 +594,111 @@
   .cardBody { padding: 1.5rem 1.5rem 1.8rem; }
   .cardTitle { font-size: 1.7rem; }
   .cardImageWrap { height: 160px; }
+}
+/* CAREER SECTION */
+
+.careerSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+
+  align-items: center;
+
+  padding: 7rem 4rem;
+
+  border-bottom: 1px solid var(--border);
+
+  position: relative;
+  overflow: hidden;
+}
+
+.careerSection::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(212,255,0,0.05),
+      transparent 45%
+    );
+
+  pointer-events: none;
+}
+
+.careerImageWrap {
+  position: relative;
+}
+
+.careerImage {
+  width: 100%;
+  height: 620px;
+
+  object-fit: cover;
+
+  border-radius: 28px;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.6);
+
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.careerImage:hover {
+  transform: scale(1.02);
+
+  box-shadow:
+    0 35px 80px rgba(0,0,0,0.75),
+    0 0 40px rgba(212,255,0,0.08);
+}
+
+.careerContent {
+  position: relative;
+  z-index: 1;
+}
+
+.careerTitle {
+  font-family: 'Bebas Neue', sans-serif;
+
+  font-size: clamp(3rem, 6vw, 5.5rem);
+
+  line-height: 0.95;
+
+  letter-spacing: 0.04em;
+
+  margin: 1rem 0 2rem;
+}
+
+.careerText {
+  font-size: 1.05rem;
+
+  line-height: 1.9;
+
+  color: var(--gray);
+
+  margin-bottom: 2.5rem;
+
+  max-width: 540px;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+  .careerSection {
+    grid-template-columns: 1fr;
+
+    gap: 3rem;
+
+    padding: 5rem 1.5rem;
+  }
+
+  .careerImage {
+    height: 420px;
+  }
 }

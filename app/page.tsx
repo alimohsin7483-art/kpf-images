@@ -30,7 +30,25 @@ const websiteSchema = {
     "query-input": "required name=search_term_string",
   },
 };
-
+const items = [
+  "STRENGTH",
+  "NUTRITION",
+  "FAT LOSS",
+  "WELLNESS",
+  "MINDSET",
+  "SCIENCE > TRENDS",
+  "MUMBAI",
+  "KPF ACADEMY",
+];
+<div className={styles.marqueeBar} aria-hidden="true">
+  <div className={styles.marqueeInner}>
+    {[...items, ...items].map((item, i) => (
+      <span key={i} className={styles.marqueeItem}>
+        {item} <span className={styles.marqueeDot}>✦</span>
+      </span>
+    ))}
+  </div>
+</div>
 export default function Home() {
   return (
     <>
@@ -67,13 +85,30 @@ export default function Home() {
       </section>
 
       {/* MARQUEE */}
-      <div className={styles.marqueeBar} aria-hidden="true">
-        <div className={styles.marqueeInner}>
-          {["STRENGTH", "NUTRITION", "FAT LOSS", "WELLNESS", "MINDSET", "SCIENCE > TRENDS", "MUMBAI", "KPF ACADEMY", "STRENGTH", "NUTRITION", "FAT LOSS", "WELLNESS", "MINDSET", "SCIENCE > TRENDS", "MUMBAI", "KPF ACADEMY"].map((item, i) => (
-            <span key={i} className={styles.marqueeItem}>{item} <span className={styles.marqueeDot}>✦</span></span>
-          ))}
-        </div>
-      </div>
+      <div className={styles.marqueeInner}>
+  {[
+    "STRENGTH",
+    "NUTRITION",
+    "FAT LOSS",
+    "WELLNESS",
+    "MINDSET",
+    "SCIENCE > TRENDS",
+    "MUMBAI",
+    "KPF ACADEMY",
+    "STRENGTH",
+    "NUTRITION",
+    "FAT LOSS",
+    "WELLNESS",
+    "MINDSET",
+    "SCIENCE > TRENDS",
+    "MUMBAI",
+    "KPF ACADEMY",
+  ].map((item, i) => (
+    <span key={i} className={styles.marqueeItem}>
+      {item} <span className={styles.marqueeDot}>✦</span>
+    </span>
+  ))}
+</div>
 
       {/* STATS */}
       <section className={styles.statsBar} aria-label="KPF Academy stats">
@@ -84,7 +119,37 @@ export default function Home() {
           </div>
         ))}
       </section>
+{/* FITNESS CAREER SECTION */}
+<section className={styles.careerSection}>
+  <div className={styles.careerImageWrap}>
+    <img
+      src="/images/fitness-career.jpg"
+      alt="Fitness Career at KPF Academy"
+      className={styles.careerImage}
+    />
+  </div>
 
+  <div className={styles.careerContent}>
+    <span className="section-label">Build Your Future</span>
+
+    <h2 className={styles.careerTitle}>
+      MAKE A CAREER<br />
+      IN <span className={styles.neon}>FITNESS</span>
+    </h2>
+
+    <p className={styles.careerText}>
+      Turn your passion for fitness into a powerful profession.
+      Learn real-world nutrition, strength training, transformation
+      science and client coaching directly from industry experts.
+      KPF Academy helps you build the knowledge, confidence and
+      practical skills needed to grow in the fitness industry.
+    </p>
+
+    <Link href="/enroll/consultation" className="btn-gold">
+      Book Free Consultation
+    </Link>
+  </div>
+</section>
       {/* PROGRAMS PREVIEW — same card style as /programs page */}
       <section className={styles.section} aria-labelledby="programs-heading">
         <div className={styles.sectionHeader}>
